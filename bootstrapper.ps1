@@ -24,8 +24,7 @@ Start-BitsTransfer -Source "http://packages.vmware.com/tools/esx/latest/windows/
 
 # If the download was successful, install VMware Tools
 if ( Test-Path "$setup\vmtools.exe" ) { 
-  $vmtoolsd = "$setup\vmtools.exe /S /v '/qn REBOOT=R ADDLOCAL=ALL'"
-  Invoke-Expression $vmtoolsd
+  Invoke-Expression "$setup\vmtools.exe /S /v '/qn REBOOT=R ADDLOCAL=ALL'"
 }
 
 # Capture OVF runtime environment metadata
@@ -36,26 +35,22 @@ if ( Test-Path "$vmtoolsdexe" ) {
 }
 
 # Install Chocolatey
-$chocolatey = New-Object System.Net.Webclient
-Invoke-Expression $chocolatey.DownloadString('http://chocolatey.org/install.ps1')
+Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://chocolatey.org/install.ps1')
 
 # Install WuInstall
-$wuinstall = "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
-Invoke-Expression $wuinstall
+Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
 
-# Run WuInstall
-$wuinstallrun = "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
-Invoke-Expression $wuinstallrun
+# Run WuInstall 
+Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
 
 # Install Puppet with Chocolatey
-$puppet = "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
-Invoke-Expression $puppet
+Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
 # Do the XSL transform
 if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test-Path "$setup\ovf-env.xml") ) {
-  $xslt = New-Object System.Xml.Xsl.XslCompiledTransform
-  $xslt.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
-  $xslt.Transform("$setup\ovf-env.xml", "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml")
+  $xsl = New-Object System.Xml.Xsl.XslCompiledTransform
+  $xsl.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
+  $xsl.Transform("$setup\ovf-env.xml", "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml")
 }
 
 # Cleanup
