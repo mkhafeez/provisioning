@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Environment
+     xmlns="http://schemas.dmtf.org/ovf/environment/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:oe="http://schemas.dmtf.org/ovf/environment/1"
+     xmlns:ve="http://www.vmware.com/schema/ovfenv"
+     oe:id=""
+     ve:vCenterId="vm-3046">
+   <PlatformSection>
+      <Kind>VMware ESXi</Kind>
+      <Version>5.1.0</Version>
+      <Vendor>VMware, Inc.</Vendor>
+      <Locale>en</Locale>
+   </PlatformSection>
+   <PropertySection>
+     <Property oe:key="app_project" oe:value="sfa"/>
+     <Property oe:key="app_environment" oe:value="staging"/>
+     <Property oe:key="app_role" oe:value="web"/>
+     <Property oe:key="app_machine_id" oe:value="1"/>
+   </PropertySection>
+  <ve:EthernetAdapterSection>
+      <ve:Adapter ve:mac="00:80:53:7b:42:31" ve:network="VM Network" ve:unitNumber="7"/>
+   </ve:EthernetAdapterSection>
+</Environment>
