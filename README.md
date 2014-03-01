@@ -5,7 +5,7 @@ This is a proof of concept for automatically provisioning Windows servers and bo
 Steps
 ---------
 
-▪ Create an autounattend.xml answer file with the Windows Assessment and Deployment Kit. The answer file contains a single, synchronous command during the oobeSystem Configuration Pass (pass 7, FirstLogonCommands; reference: http://www.derekseaman.com/2012/07/windows-server-2012-unattended.html). The command uses the WebClient Class to connect to the cloud via powershell and install requesite tools; e.g., VMware tools, Chocolatey, Puppet, plus a custom XSLT transform to convert the OVF runtime environment metadata into Facter facts (see bootstrapper.ps1).
+▪ Create an autounattend.xml answer file with the Windows Assessment and Deployment Kit. 
 
 ▪ Slipstream the answer file into the Windows Server 2012 R2 iso and upload it to the ESXi datastore via the vCenter client.
 
