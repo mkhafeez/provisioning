@@ -28,8 +28,7 @@ if ( Test-Path "$setup\vmtools.exe" ) {
 }
 
 # Capture OVF runtime environment metadata
-$vmtoolsdexe = "$systemdrive\Program Files\VMware\VMware Tools\vmtoolsd.exe"
-if ( Test-Path "$vmtoolsdexe" ) {
+if ( Test-Path "$systemdrive\Program Files\VMware\VMware Tools\vmtoolsd.exe" ) {
   Set-Location "$systemdrive\Program Files\VMware\VMware Tools"
   Invoke-Command { & cmd /C "vmtoolsd.exe --cmd 'info-get guestinfo.ovfEnv'" } | Add-Content "$setup\ovf-env.xml"
 }
