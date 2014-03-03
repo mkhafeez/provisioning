@@ -16,7 +16,7 @@ $programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES');
 
 # Get the URI to the latest Windows x64 VMtools release
 $latest = (Invoke-WebRequest -UseBasicParsing -Uri http://packages.vmware.com/tools/esx/latest/windows/x64/index.html).Links | 
-Where-Object {$_.href.EndsWith('exe')} | select -expand href
+Where-Object {$_.href.EndsWith('exe')} | Select -Expand href
 
 # Download VMware Tools
 Import-Module BitsTransfer
