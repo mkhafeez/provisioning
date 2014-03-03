@@ -21,7 +21,7 @@ Steps
 Conclusion
 ---------
 
-The end result is a new Windows Server 2012 R2 virtual machine which is "tagged" as a specific node type (role; e.g. "web", "app", "db", etc) in a specific environment (e.g., staging, production, etc). With these coordinates, the Puppet master can apply the appropriate profile/s and configurations for a given node; that is, no-click provisioning and full configuration of the node without ever having logged into it.
+The end result is a new Windows Server 2012 R2 virtual machine which is "tagged" as a specific node type (role; e.g. "web", "app", "db", etc) in a specific environment (e.g., staging, production, etc). With these coordinates, the Puppet master can apply the appropriate profile/s and configurations for a given node; that is, no-click provisioning and self-configuration without ever having logged into the newly provisioned guest OS.
 
 Addendum
 ---------
