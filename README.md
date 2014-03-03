@@ -13,7 +13,7 @@ Steps
 
 ▪ Export the ovf package and save it in an accessible, yet secure location.
 
-▪ Deployment consists of command line execution of the very awesome ovftool which allows for configuration of OVF metadata on the fly... that is, during deployment of the OVF package.
+▪ Deployment consists of command line execution of the very awesome ovftool which allows for configuration of OVF custom properties on the fly... that is, during deployment of the OVF package.
 
 ▪ During the final sysprep pass, oobeSystem, Chocolatey is installed, which in turn installs Puppet. Additionally, we capture the OVF metadata and do an XSL transform on it to convert it to YAML for Facter to consume.
 
