@@ -53,6 +53,8 @@ if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test
 }
 
 # Rename the computer
+# Note that the "keys" array maps directly to OVF custom properties. 
+# Adjust for your environment as required.
 $keys = 'app_project', 'app_environment', 'app_role', 'app_id'
 $xml = New-Object -TypeName XML
 $xml.Load( "$setup\ovf-env.xml" )
