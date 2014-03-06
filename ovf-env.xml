@@ -16,7 +16,7 @@
      <Property oe:key="app_project" oe:value="sfa"/>
      <Property oe:key="app_environment" oe:value="staging"/>
      <Property oe:key="app_role" oe:value="web"/>
-     <Property oe:key="app_machine_id" oe:value="1"/>
+     <Property oe:key="app_id" oe:value="1"/>
    </PropertySection>
   <ve:EthernetAdapterSection>
       <ve:Adapter ve:mac="00:80:53:7b:42:31" ve:network="VM Network" ve:unitNumber="7"/>
