@@ -9,7 +9,7 @@ if ( (Test-Path "$temp") -and !(Test-Path $setup) ) {
 $systemdrive = [System.Environment]::GetEnvironmentVariable('SYSTEMDRIVE')
 
 # Get program files environment variable
-$programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES');
+$programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
 
 # Set the PATH environment variable for Chocolatey & VMware Tools
 [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";$programfiles\VMware\VMware Tools;$systemdrive\chocolatey\bin", "Machine")
