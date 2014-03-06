@@ -7,15 +7,15 @@ Steps
 
 ▪ Create an autounattend.xml answer file with the Windows Assessment and Deployment Kit and slipstream the answer file into the Windows Server 2012 R2 iso. Upload the iso to the ESXi datastore via the vCenter client.
 
-▪ Create a new virtual machine in the vCenter client and attach the Windows Server iso to the cdrom/dvd drive and ensure it's connected at power on.
+▪ Create a new virtual machine in the vCenter client and attach the Windows Server iso to the CD-ROM/DVD drive and ensure it's connected at power on.
 
 ▪ After the VM is created -- and before it's powered on -- edit its settings and enable the vApp configuration (on the options tab). After enabling vApp options configure the transport method for delivering the OVF metadata... for our use case, choose the "VMware Tools" option.  
 
-▪ Export the ovf package and save it in an accessible, yet secure location.
+▪ Export the OVF package and save it in an accessible, yet secure location.
 
-▪ Deployment consists of command line execution of the very awesome ovftool which allows for configuration of OVF custom properties on the fly... that is, during deployment of the OVF package.
+▪ Deployment consists of command line execution of the very awesome ovftool which allows for configuration of custom OVF  properties on the fly... that is, during deployment of the OVF package (see gist below).
 
-▪ During the final sysprep pass, oobeSystem, Chocolatey is installed, which in turn installs Puppet. Additionally, we capture the OVF metadata and do an XSL transform on it to convert it to YAML for Facter to consume.
+▪ During the final sysprep pass, oobeSystem, Chocolatey is installed, which in turn installs Puppet. Additionally, we capture the OVF metadata and do an XSL transform on it to convert XML metadata to YAML for Facter to consume.
 
 
 Conclusion
