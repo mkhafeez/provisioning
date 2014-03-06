@@ -52,5 +52,14 @@ if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test
   $xsl.Transform("$setup\ovf-env.xml", "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml")
 }
 
+# Rename the computer
+$keys = 'app_project', 'app_environment', 'app_role', 'app_id'
+$xml = New-Object -TypeName XML
+$xml.Load( "$setup\ovf-env.xml" )
+$hostname = $xml.Environment.PropertySection.Property | 
+  % -Begin { $h = @{} } -Process { $h[$_.key] = $_.value } -End `
+    { ( $keys | %{ $h.$_ }) -join '-' } 
+Rename-Computer -NewName $hostname -Force
+
 # Cleanup
 Remove-Item -Recurse -Force "$setup\*"
