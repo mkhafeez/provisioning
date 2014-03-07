@@ -54,8 +54,8 @@ if ( Test-Path "$setup\ovf-env.xml" ) {
   $xml = New-Object -TypeName XML
   $xml.Load( "$setup\ovf-env.xml" )
   $hostname = $xml.Environment.PropertySection.Property | 
-    % -Begin { $h = @{} } -Process { $h[$_.key] = $_.value } -End `
-      { ($keys | %{ $h.$_ }) -join '-' } 
+    % -Begin { $h = @{} } -Process { $h[$_.Key] = $_.Value } -End `
+      { ($keys | %{ $h.$_ }) -Join '-' } 
   Rename-Computer -NewName $hostname -Force
 }
 
