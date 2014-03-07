@@ -15,12 +15,12 @@ $programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
 [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";$programfiles\VMware\VMware Tools;$systemdrive\chocolatey\bin", "Machine")
 
 # Get the URI to the latest Windows x64 VMtools release
-$latest = (Invoke-WebRequest -UseBasicParsing -Uri http://packages.vmware.com/tools/esx/5.5/windows/x64/index.html).Links | 
+$latest = (Invoke-WebRequest -UseBasicParsing -Uri "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/index.html").Links | 
 Where-Object {$_.href.EndsWith('exe')} | Select -Expand href
 
 # Download VMware Tools
 Import-Module BitsTransfer
-Start-BitsTransfer -Source "http://packages.vmware.com/tools/esx/5.5/windows/x64/$latest" -Destination "$setup\vmtools.exe"
+Start-BitsTransfer -Source "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/$latest" -Destination "$setup\vmtools.exe"
 
 # If the download was successful, install VMware Tools
 if ( Test-Path "$setup\vmtools.exe" ) { 
