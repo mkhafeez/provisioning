@@ -36,12 +36,6 @@ if ( Test-Path "$programfiles\VMware\VMware Tools\vmtoolsd.exe" ) {
 # Install Chocolatey
 Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://chocolatey.org/install.ps1')
 
-# Install WuInstall
-Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
-
-# Run WuInstall 
-Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
-
 # Install Puppet with Chocolatey
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
@@ -65,3 +59,9 @@ Rename-Computer -NewName $hostname -Force
 
 # Cleanup
 Remove-Item -Recurse -Force "$setup\*"
+
+# Install WuInstall
+Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
+
+# Run WuInstall 
+Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
