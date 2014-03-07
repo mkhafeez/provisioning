@@ -54,7 +54,7 @@ $xml = New-Object -TypeName XML
 $xml.Load( "$setup\ovf-env.xml" )
 $hostname = $xml.Environment.PropertySection.Property | 
   % -Begin { $h = @{} } -Process { $h[$_.key] = $_.value } -End `
-    { ( $keys | %{ $h.$_ }) -join '-' } 
+    { ($keys | %{ $h.$_ }) -join '-' } 
 Rename-Computer -NewName $hostname -Force
 
 # Cleanup
