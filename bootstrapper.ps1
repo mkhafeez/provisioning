@@ -1,7 +1,7 @@
 # Get the temporary folder environment variable
 $temp = [system.environment]::getenvironmentvariable('TEMP')
 $setup = "$temp\setup"
-if ( (Test-Path "$temp") -and !(Test-Path $setup) ) { 
+if ( (Test-Path "$temp") -And !(Test-Path $setup) ) { 
   New-Item -type directory "$setup"
 } 
 
