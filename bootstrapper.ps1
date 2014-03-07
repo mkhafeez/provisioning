@@ -58,6 +58,7 @@ if ( Test-Path "$setup\ovf-env.xml" ) {
       { ($keys | %{ $h.$_ }) -join '-' } 
   Rename-Computer -NewName $hostname -Force
 }
+
 # Cleanup
 Remove-Item -Recurse -Force "$setup\*"
 
