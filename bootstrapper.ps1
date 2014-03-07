@@ -50,13 +50,16 @@ if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test
 # Note that the "keys" array maps directly to my OVF custom properties. 
 # Adjust for your environment as required.
 if ( Test-Path "$setup\ovf-env.xml" ) {
+  $current_hostname = Invoke-Expression "cmd /C hostname"
   $keys = 'app_project', 'app_environment', 'app_role', 'app_id'
   $xml = New-Object -TypeName XML
   $xml.Load( "$setup\ovf-env.xml" )
-  $hostname = $xml.Environment.PropertySection.Property | 
+  $new_hostname = $xml.Environment.PropertySection.Property | 
     % -Begin { $h = @{} } -Process { $h[$_.Key] = $_.Value } -End `
       { ($keys | %{ $h.$_ }) -Join '-' } 
-  Rename-Computer -NewName $hostname -Force
+  if ( "$new_hostname" -ne "$current_hostname" ) {
+    Rename-Computer -NewName $new_hostname -Force
+  }
 }
 
 # Cleanup
