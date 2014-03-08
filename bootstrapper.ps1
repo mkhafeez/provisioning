@@ -84,5 +84,7 @@ Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
 # Run WuInstall 
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
 
-# Reboot
-Restart-Computer
+if ( Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml" ) {
+  # Reboot
+  Restart-Computer
+}
