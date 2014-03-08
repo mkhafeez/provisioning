@@ -15,6 +15,8 @@ Invoke-Expression 'cmd /C ping google.com' *> $null
 
 # Get the temporary folder environment variable
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
+
+# Create a working directory
 $setup = "$temp\setup"
 if ( (Test-Path "$temp") -And !(Test-Path $setup) ) { 
   New-Item -type directory "$setup"
@@ -49,7 +51,7 @@ if ( Test-Path "$programfiles\VMware\VMware Tools\vmtoolsd.exe" ) {
 }
 
 # Install Chocolatey
-Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://chocolatey.org/install.ps1')
+Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.chocolatey.org/install.ps1')
 
 # Install Puppet with Chocolatey
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
@@ -69,7 +71,8 @@ if ( Test-Path "$setup\ovf-env.xml" ) {
   $keys = 'app_project', 'app_environment', 'app_role', 'app_id'
   $xml = New-Object -TypeName XML
   $xml.Load( "$setup\ovf-env.xml" )
-  $new_hostname = $xml.Environment.PropertySection.Property | % -Begin { $h = @{} } -Process { $h[$_.Key] = $_.Value } -End { ($keys | %{ $h.$_ }) -Join '-' } 
+  $new_hostname = $xml.Environment.PropertySection.Property | 
+    % -Begin { $h = @{} } -Process { $h[$_.Key] = $_.Value } -End { ($keys | %{ $h.$_ }) -Join '-' } 
   if ( "$new_hostname" -ne "$current_hostname" ) {
     Rename-Computer -NewName $new_hostname -Force
   }
@@ -84,7 +87,7 @@ Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
 # Run WuInstall 
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
 
+# Reboot
 if ( Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml" ) {
-  # Reboot
   Restart-Computer
 }
