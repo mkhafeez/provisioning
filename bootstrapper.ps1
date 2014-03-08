@@ -1,8 +1,8 @@
-# Flush the DNS cache
-Invoke-Expression 'cmd /C ipconfig /flushdns' *> $null
-
 # Clear the ARP cache
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' *> $null
+
+# Flush the DNS cache
+Invoke-Expression 'cmd /C ipconfig /flushdns' *> $null
 
 # Renew the DNS client registration
 Invoke-Expression 'cmd /C ipconfig /registerdns' *> $null
@@ -47,7 +47,7 @@ if ( Test-Path "$setup\vmtools.exe" ) {
 # Capture OVF runtime environment metadata
 if ( Test-Path "$programfiles\VMware\VMware Tools\vmtoolsd.exe" ) {
   Set-Location "$programfiles\VMware\VMware Tools"
-  Invoke-Command { & cmd /C 'vmtoolsd.exe --cmd "info-get guestinfo.ovfEnv"' } | Add-Content "$setup\ovf-env.xml"
+  Invoke-Command { & cmd /C 'vmtoolsd.exe --cmd "info-get guestinfo.ovfEnv"' } | Add-Content -Encoding UTF8 "$setup\ovf-env.xml"
 }
 
 # Install Chocolatey
@@ -87,7 +87,7 @@ Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
 # Run WuInstall 
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
 
-# Reboot
+# Reboot 
 if ( Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml" ) {
   Restart-Computer
 }
