@@ -1,3 +1,18 @@
+# Flush the DNS cache
+Invoke-Expression 'cmd /C ipconfig /flushdns' *> $null
+
+# Clear the ARP cache
+Invoke-Expression 'cmd /C netsh interface ip delete arpcache' *> $null
+
+# Renew the DNS client registration
+Invoke-Expression 'cmd /C ipconfig /registerdns' *> $null
+
+# Nap time!
+Start-Sleep 5
+
+# Get some packets flowing...
+Invoke-Expression 'cmd /C ping google.com' *> $null
+
 # Get the temporary folder environment variable
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
 $setup = "$temp\setup"
@@ -68,3 +83,6 @@ Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall"
 
 # Run WuInstall 
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst wuinstall.run"
+
+# Reboot
+Restart-Computer
