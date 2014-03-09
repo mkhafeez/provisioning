@@ -67,7 +67,7 @@ if ( $virtual -eq "vmware" ) {
     $xsl.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
     $xsl.Transform("$setup\ovf-env.xml", $yaml)
     if ( Test-Path $yaml ) {
-      [System.IO.File]::WriteAllLines($yaml, [System.IO.File]::ReadAllLines($yaml))
+      (Get-Content $yaml) | Set-Content $yaml
     }
   }
 
