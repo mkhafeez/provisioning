@@ -1,17 +1,17 @@
-# Clear the ARP cache
-Invoke-Expression 'cmd /C start /WAIT netsh interface ip delete arpcache' *> $null
+# Nap time!
+Start-Sleep 20
 
 # Flush the DNS cache
-Invoke-Expression 'cmd /C start /WAIT ipconfig /flushdns' *> $null
+Clear-DnsClientCache
 
 # Renew the DNS client registration
-Invoke-Expression 'cmd /C start /WAIT ipconfig /registerdns' *> $null
+Register-DnsClient
 
-# Nap time!
-Start-Sleep 5
+# Clear the ARP cache
+Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
 
 # Get some packets flowing...
-Invoke-Expression 'cmd /C start /WAIT ping google.com' *> $null
+Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
 
 # Get the temporary folder environment variable
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
@@ -53,7 +53,7 @@ if ( Test-Path "C:\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
 
     # If the download was successful, install VMware Tools
     if ( Test-Path "$setup\vmtools.exe" ) { 
-      Invoke-Expression "$setup\vmtools.exe /S /v '/qn REBOOT=R ADDLOCAL=ALL'"
+      Invoke-Expression "cmd /C start /WAIT $setup\vmtools.exe /S /v '/qn REBOOT=R ADDLOCAL=ALL'"
     }
 
     # Capture OVF runtime environment metadata
