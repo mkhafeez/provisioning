@@ -7,11 +7,8 @@ Clear-DnsClientCache | Out-Null
 # Renew the DNS client registration
 Register-DnsClient | Out-Null 
 
-# Restart the branchecache service
-Invoke-Expression 'cmd /C netsh branchcache reset' | Out-Null 
-
-# Clear the ARP cache
-Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
+# Reset the TCP/IP stack
+Invoke-Expression 'cmd /C netsh interface ip reset' | Out-Null 
 
 # Get some packets flowing...
 Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
