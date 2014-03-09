@@ -8,7 +8,7 @@ Clear-DnsClientCache
 Register-DnsClient
 
 # Restart the branchecache service
-Invoke-Expression 'cmd /C netsh branchcache reset'
+Invoke-Expression 'cmd /C netsh branchcache reset' | Out-Null 
 
 # Clear the ARP cache
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
