@@ -28,6 +28,7 @@ Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.c
 # Install Puppet with Chocolatey
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
+# VMware?
 $virtual = Invoke-Expression "cmd /C facter virtual"
 
 if ( $virtual -eq "vmware" ) {
