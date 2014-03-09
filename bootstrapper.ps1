@@ -17,13 +17,13 @@ Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null
 Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
 
 # Get the system drive environment variable
-$temp = [System.Environment]::GetEnvironmentVariable('TEMP')
+$temp = Get-Childitem env:TEMP | Select -Expand Value
 
 # Get the system drive environment variable
-$systemdrive = [System.Environment]::GetEnvironmentVariable('SYSTEMDRIVE')
+$systemdrive = Get-Childitem env:SYSTEMDRIVE | Select -Expand Value
 
 # Get program files environment variable
-$programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
+$programfiles = Get-Childitem env:PROGRAMFILES | Select -Expand Value
 
 # Install Chocolatey
 Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.chocolatey.org/install.ps1')
