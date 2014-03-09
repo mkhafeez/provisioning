@@ -2,10 +2,10 @@
 Start-Sleep 20
 
 # Flush the DNS cache
-Clear-DnsClientCache
+Clear-DnsClientCache | Out-Null 
 
 # Renew the DNS client registration
-Register-DnsClient
+Register-DnsClient | Out-Null 
 
 # Restart the branchecache service
 Invoke-Expression 'cmd /C netsh branchcache reset' | Out-Null 
@@ -16,14 +16,14 @@ Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null
 # Get some packets flowing...
 Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
 
-# Get the temporary folder environment variable
-$temp = Get-Variable TEMP -Valueonly 
+# Get the system drive environment variable
+$temp = [System.Environment]::GetEnvironmentVariable('TEMP')
 
 # Get the system drive environment variable
-$systemdrive = Get-Variable SYSTEMDRIVE -Valueonly 
+$systemdrive = [System.Environment]::GetEnvironmentVariable('SYSTEMDRIVE')
 
 # Get program files environment variable
-$programfiles = Get-Variable PROGRAMFILES -Valueonly 
+$programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
 
 # Install Chocolatey
 Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.chocolatey.org/install.ps1')
