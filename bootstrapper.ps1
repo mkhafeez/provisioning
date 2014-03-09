@@ -58,23 +58,29 @@ Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
 # Do the XSL transform
 if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test-Path "$setup\ovf-env.xml") ) {
+  $yaml = "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml"
   $xsl = New-Object System.Xml.Xsl.XslCompiledTransform
   $xsl.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
-  $xsl.Transform("$setup\ovf-env.xml", "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml")
+  $xsl.Transform("$setup\ovf-env.xml", $yaml)
+  if ( Test-Path $yaml ) {
+    # Re-write the file without the Unicode Byte Order Marker (BOM)
+    $facts = Get-Content $yaml
+    [System.IO.File]::WriteAllLines($yamfile, $facts)
+  }
 }
 
 # Rename the computer
 # Note that the "keys" array maps directly to my OVF custom properties. 
 # Adjust for your environment as required.
 if ( Test-Path "$setup\ovf-env.xml" ) {
-  $current_hostname = Invoke-Expression "cmd /C hostname"
+  $currhostname = Invoke-Expression "cmd /C hostname"
   $keys = 'app_project', 'app_environment', 'app_role', 'app_id'
   $xml = New-Object -TypeName XML
   $xml.Load( "$setup\ovf-env.xml" )
-  $new_hostname = $xml.Environment.PropertySection.Property | 
+  $newhostname = $xml.Environment.PropertySection.Property | 
     % -Begin { $h = @{} } -Process { $h[$_.Key] = $_.Value } -End { ($keys | %{ $h.$_ }) -Join '-' } 
-  if ( "$new_hostname" -ne "$current_hostname" ) {
-    Rename-Computer -NewName $new_hostname -Force
+  if ( "$newhostname" -ne "$currhostname" ) {
+    Rename-Computer -NewName $newhostname -Force
   }
 }
 
