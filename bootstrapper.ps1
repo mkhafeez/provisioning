@@ -13,7 +13,7 @@ Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null
 # Get some packets flowing...
 Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
 
-# Get the system drive environment variable
+# Get the temp environment variable
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
 
 # Get the system drive environment variable
