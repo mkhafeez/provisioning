@@ -68,7 +68,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
       $xsl = New-Object System.Xml.Xsl.XslCompiledTransform
       $xsl.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
       $xsl.Transform("$setup\ovf-env.xml", $yaml)
-      # Get contents of the YAM file and re-write it with ASCII encoding to remove the BOM
+      # Get the contents of the YAM file and re-write it with ASCII encoding to remove the BOM
       if ( Test-Path $yaml ) {
         (Get-Content $yaml) | Set-Content $yaml
       }
