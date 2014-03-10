@@ -28,7 +28,7 @@ Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.c
 # Install Puppet with Chocolatey
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
-if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
+if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.bat" ) {
   Set-Location "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin"
   $virtual = Invoke-Expression "cmd /C facter virtual"
 
