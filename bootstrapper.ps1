@@ -7,20 +7,20 @@ Clear-DnsClientCache | Out-Null
 # Renew the DNS client registration
 Register-DnsClient | Out-Null 
 
-# Clear the arpcache (does not require a reboot)
+# Clear the arpcache
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
 
 # Get some packets flowing...
 Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
 
 # Get the system drive environment variable
-$temp = Get-Childitem env:TEMP | Select -Expand Value
+$temp = [System.Environment]::GetEnvironmentVariable('TEMP')
 
 # Get the system drive environment variable
-$systemdrive = Get-Childitem env:SYSTEMDRIVE | Select -Expand Value
+$systemdrive = [System.Environment]::GetEnvironmentVariable('SYSTEMDRIVE')
 
 # Get program files environment variable
-$programfiles = Get-Childitem env:PROGRAMFILES | Select -Expand Value
+$programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
 
 # Install Chocolatey
 Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.chocolatey.org/install.ps1')
@@ -42,7 +42,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
 
     # Set the PATH environment variable for VMware Tools
     [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";$programfiles\VMware\VMware Tools", "User")
-    
+
     # Get the URI to the latest Windows x64 VMtools release
     $latest = (Invoke-WebRequest -UseBasicParsing -Uri "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/index.html").Links | 
     Where-Object {$_.href.EndsWith('exe')} | Select -Expand href
