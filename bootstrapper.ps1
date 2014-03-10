@@ -28,8 +28,8 @@ Invoke-Expression (New-Object System.Net.Webclient).DownloadString('http://www.c
 # Install Puppet with Chocolatey
 Invoke-Expression "cmd /C $systemdrive\chocolatey\bin\cinst puppet"
 
-if ( Test-Path "C:\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
-  Set-Location "C:\Program Files (x86)\Puppet Labs\Puppet\bin"
+if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
+  Set-Location "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin"
   $virtual = Invoke-Expression "cmd /C facter virtual"
 
   # VMware?
@@ -42,7 +42,7 @@ if ( Test-Path "C:\Program Files (x86)\Puppet Labs\Puppet\bin" ) {
 
     # Set the PATH environment variable for VMware Tools
     [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";$programfiles\VMware\VMware Tools", "User")
-
+    
     # Get the URI to the latest Windows x64 VMtools release
     $latest = (Invoke-WebRequest -UseBasicParsing -Uri "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/index.html").Links | 
     Where-Object {$_.href.EndsWith('exe')} | Select -Expand href
