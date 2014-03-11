@@ -1,25 +1,15 @@
 # Nap time!
 Start-Sleep 20
 
-# Flush the DNS cache
+# Ensure networking
 Invoke-Expression 'cmd /C ipconfig /flushdns' | Out-Null 
-
-# Renew the DNS client registration
 Invoke-Expression 'cmd /C ipconfig /registerdns' | Out-Null 
-
-# Clear the arpcache
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
-
-# Get some packets flowing...
 Invoke-Expression 'cmd /C ping google.com' | Out-Null 
 
-# Get the temp environment variable
+# Get environment variables
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
-
-# Get the system drive environment variable
 $systemdrive = [System.Environment]::GetEnvironmentVariable('SYSTEMDRIVE')
-
-# Get program files environment variable
 $programfiles = [System.Environment]::GetEnvironmentVariable('PROGRAMFILES')
 
 # Install Chocolatey
