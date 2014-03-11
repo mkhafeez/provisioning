@@ -43,7 +43,8 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
 
     # If the download was successful, install VMware Tools
     if ( Test-Path "$setup\vmtools.exe" ) { 
-      Invoke-Expression "cmd /C start /WAIT $setup\vmtools.exe /S /v '/qn REBOOT=R ADDLOCAL=ALL'"
+      Set-Location "$setup"
+      Invoke-Expression 'cmd /C start /WAIT vmtools.exe /S /v "/qn REBOOT=R ADDLOCAL=ALL"'
     }
 
     # Capture OVF runtime environment metadata
