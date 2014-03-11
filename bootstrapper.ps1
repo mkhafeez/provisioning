@@ -61,7 +61,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
       $xsl.Transform("$setup\ovf-env.xml", $yaml)
       # Get the contents of the YAM file and re-write it with ASCII encoding to remove the BOM
       if ( Test-Path $yaml ) {
-        (Get-Content $yaml) | Set-Content $yaml
+        (Get-Content $yaml) | Set-Content -Encoding ASCII $yaml
       }
     }
 
