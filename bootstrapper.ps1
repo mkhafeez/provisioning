@@ -69,8 +69,8 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
     # Note that the "keys" array maps directly to my OVF custom properties. 
     # Adjust for your environment as required.
     if ( Test-Path "$setup\ovf-env.xml" ) {
-      $currhostname = Invoke-Expression "cmd /C hostname"
       $keys = 'app_project', 'app_environment', 'app_role', 'app_id'
+      $currhostname = Invoke-Expression "cmd /C hostname"
       $xml = New-Object -TypeName XML
       $xml.Load( "$setup\ovf-env.xml" )
       $newhostname = $xml.Environment.PropertySection.Property | 
