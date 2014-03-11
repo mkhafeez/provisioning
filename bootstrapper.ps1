@@ -2,10 +2,10 @@
 Start-Sleep 20
 
 # Flush the DNS cache
-Clear-DnsClientCache | Out-Null 
+Invoke-Expression 'cmd /C ipconfig /flushdns' | Out-Null 
 
 # Renew the DNS client registration
-Register-DnsClient | Out-Null 
+Invoke-Expression 'cmd /C ipconfig /registerdns' | Out-Null 
 
 # Clear the arpcache
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
