@@ -11,7 +11,7 @@ Invoke-Expression 'cmd /C ipconfig /registerdns' | Out-Null
 Invoke-Expression 'cmd /C netsh interface ip delete arpcache' | Out-Null 
 
 # Get some packets flowing...
-Invoke-Expression 'cmd /C start /WAIT ping google.com' | Out-Null 
+Invoke-Expression 'cmd /C ping google.com' | Out-Null 
 
 # Get the temp environment variable
 $temp = [System.Environment]::GetEnvironmentVariable('TEMP')
