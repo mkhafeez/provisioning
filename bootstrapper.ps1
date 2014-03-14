@@ -26,7 +26,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
   if ( $virtual -eq "vmware" ) {
     # Create a working directory
     $setup = "$temp\setup"
-    if ( (Test-Path "$temp") -And !(Test-Path $setup) ) { 
+    if ( (Test-Path "$temp") -and !(Test-Path $setup) ) { 
       New-Item -type directory "$setup"
     } 
 
@@ -54,7 +54,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
     }
 
     # Do the XSL transform and remove BOM
-    if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -And (Test-Path "$setup\ovf-env.xml") ) {
+    if ( (Test-Path "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d") -and (Test-Path "$setup\ovf-env.xml") ) {
       $yaml = "$systemdrive\ProgramData\PuppetLabs\Facter\facts.d\facts.yaml"
       $xsl = New-Object System.Xml.Xsl.XslCompiledTransform
       $xsl.Load([xml](New-Object System.Net.WebClient).DownloadString("https://raw.github.com/superfantasticawesome/provisioning/master/xml-to-yaml.xsl"))
