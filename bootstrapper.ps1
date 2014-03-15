@@ -37,7 +37,7 @@ if ( Test-Path "$systemdrive\Program Files (x86)\Puppet Labs\Puppet\bin\facter.b
     $latest = (Invoke-WebRequest -UseBasicParsing -Uri "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/index.html").Links | 
     Where-Object {$_.href.EndsWith('exe')} | Select -Expand href
 
-    # Download VMware Tools
+    # Download VMware Tools "5.5spX"
     Import-Module BitsTransfer
     Start-BitsTransfer -Source "http://packages.vmware.com/tools/esx/5.5p01/windows/x64/$latest" -Destination "$setup\vmtools.exe"
 
